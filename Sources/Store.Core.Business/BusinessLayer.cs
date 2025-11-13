@@ -1,0 +1,23 @@
+﻿global using Store.Core.Business.Shared;
+
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using Store.Core.Business.Orders;
+using Store.Core.Business.Products;
+using Store.Core.Business.ShoppingCarts;
+
+namespace Store.Core.Business;
+
+public static class BusinessLayer
+{
+    public static Assembly Assembly => typeof(BusinessLayer).Assembly;
+
+    public static IServiceCollection AddBusiness(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<ShoppingCartsService>()
+            .AddScoped<ProductsService>()
+            .AddScoped<OrdersService>()
+            .AddScoped<ShoppingCartCheckoutService>();
+    }
+}
