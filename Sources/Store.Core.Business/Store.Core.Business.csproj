@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Store.Core.Shared\Store.Core.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Products\NewFolder\" />
-  </ItemGroup>
-
 </Project>

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Produces("application/json")]
@@ -11,6 +10,6 @@ public abstract class BaseApiController(IMediator mediator = null) : ControllerB
             ? NotFound()
             : Ok(value);
 
-    protected async Task<IActionResult> ProcessQuery<TResponse>(IRequest<TResponse> query)
-        => Ok(await mediator.Send(query));
+    protected async Task<IActionResult> Execute<TResponse>(IRequest<TResponse> request)
+        => Ok(await mediator.Send(request));
 }

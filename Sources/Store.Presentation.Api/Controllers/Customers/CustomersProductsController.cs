@@ -12,7 +12,7 @@ public sealed class CustomersProductsController(ProductsService products, IMedia
     [HttpGet]
     [ProducesResponseType<IEnumerable<ProductModel>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAvailableProducts()
-        => Ok(await products.GetAllAvailable());
+        => await Execute(new GetAvailableProductsQuery());
 
     /// <summary>
     /// Find details of a specific product.
@@ -21,5 +21,5 @@ public sealed class CustomersProductsController(ProductsService products, IMedia
     [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query)
-        => await ProcessQuery(query);
+        => await Execute(query);
 }
