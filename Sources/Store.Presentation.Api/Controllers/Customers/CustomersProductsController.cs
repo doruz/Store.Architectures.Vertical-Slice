@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Store.Core.Business.Customers.Products;
 using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("customers/current/products")]
-public sealed class CustomersProductsController(ProductsService products) : BaseApiController
+public sealed class CustomersProductsController(ProductsService products, IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get details of all available products.
@@ -19,6 +20,6 @@ public sealed class CustomersProductsController(ProductsService products) : Base
     [HttpGet("{id}")]
     [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> FindProduct([FromRoute] string id)
-        => Ok(await products.FindProductAsync(id));
+    public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query)
+        => await ProcessQuery(query);
 }

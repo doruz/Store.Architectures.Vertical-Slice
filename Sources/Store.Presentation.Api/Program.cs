@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

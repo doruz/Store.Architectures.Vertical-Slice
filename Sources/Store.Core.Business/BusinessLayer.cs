@@ -1,4 +1,5 @@
 ﻿global using Store.Core.Business.Shared;
+global using MediatR;
 
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
