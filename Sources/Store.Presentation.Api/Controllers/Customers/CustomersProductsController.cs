@@ -1,10 +1,8 @@
-﻿using MediatR;
-using Store.Core.Business.Customers.Products;
-using Store.Core.Business.Products;
+﻿using Store.Core.Business.Customers.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("customers/current/products")]
-public sealed class CustomersProductsController(ProductsService products, IMediator mediator) : BaseApiController(mediator)
+public sealed class CustomersProductsController(IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get details of all available products.

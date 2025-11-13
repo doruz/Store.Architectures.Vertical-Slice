@@ -1,4 +1,5 @@
 global using Microsoft.AspNetCore.Mvc;
+global using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 

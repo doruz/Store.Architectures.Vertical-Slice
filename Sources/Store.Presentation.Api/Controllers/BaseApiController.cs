@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-[ApiController]
+﻿[ApiController]
 [Produces("application/json")]
 public abstract class BaseApiController(IMediator mediator = null) : ControllerBase
 {

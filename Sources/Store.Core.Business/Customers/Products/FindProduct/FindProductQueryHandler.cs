@@ -1,4 +1,5 @@
 ﻿using Store.Core.Business.Products;
+using Store.Core.Domain.Entities;
 using Store.Core.Domain.Repositories;
 using Store.Core.Shared;
 
@@ -9,9 +10,18 @@ internal sealed class FindProductQueryHandler(RepositoriesContext repositories)
 {
     public async Task<ProductModel> Handle(FindProductQuery request, CancellationToken _)
     {
-        return await repositories.Products
-            .FindAsync(request.Id)
+        var product = await repositories.Products.FindAsync(request.Id);
+
+        return product
             .EnsureIsNotNull(request.Id)
-            .MapAsync(ProductsMapper.ToProductModel);
+            .Map(ToProductModel);
     }
+
+    private static ProductModel ToProductModel(Product product) => new()
+    {
+        Id = product.Id,
+        Name = product.Name,
+        Price = PriceModel.Create(product.Price),
+        Stock = product.Stock
+    };
 }

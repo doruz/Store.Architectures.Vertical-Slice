@@ -5,14 +5,14 @@ namespace Store.Core.Business.Products;
 
 public sealed class ProductsService(RepositoriesContext repositories)
 {
-    public async Task<IEnumerable<ProductModel>> GetAllAvailable()
-    {
-        var products = await repositories.Products.FilterAsync(product => product.Stock > 0);
+    //public async Task<IEnumerable<ProductModel>> GetAllAvailable()
+    //{
+    //    var products = await repositories.Products.FilterAsync(product => product.Stock > 0);
 
-        return products
-            .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
-            .Select(ProductsMapper.ToProductModel);
-    }
+    //    return products
+    //        .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
+    //        .Select(ProductsMapper.ToProductModel);
+    //}
 
     public async Task<IEnumerable<ProductModel>> GetAll()
     {

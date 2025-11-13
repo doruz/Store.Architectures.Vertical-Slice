@@ -1,5 +1,4 @@
-﻿using Store.Core.Business.Products;
-using Store.Core.Domain.Entities;
+﻿using Store.Core.Domain.Entities;
 using Store.Core.Domain.Repositories;
 
 namespace Store.Core.Business.Customers.Products;
@@ -13,6 +12,14 @@ internal sealed class GetAvailableProductsQueryHandler(RepositoriesContext repos
 
         return products
             .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
-            .Select(ProductsMapper.ToProductModel);
+            .Select(ToProductModel);
     }
+
+    private static ProductModel ToProductModel(Product product) => new()
+    {
+        Id = product.Id,
+        Name = product.Name,
+        Price = PriceModel.Create(product.Price),
+        Stock = product.Stock
+    };
 }
