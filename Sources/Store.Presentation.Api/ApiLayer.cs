@@ -11,7 +11,6 @@ public static class ApiLayer
     public static IServiceCollection AddCurrentSolution(this IServiceCollection services, IConfiguration configuration)
     {
         return services
-            .AddMediatR(config => config.RegisterServicesFromAssemblies(BusinessLayer.Assembly))
 
             .AddBusiness()
             .AddPersistence(configuration)

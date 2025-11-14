@@ -16,6 +16,8 @@ public static class BusinessLayer
     public static IServiceCollection AddBusiness(this IServiceCollection services)
     {
         return services
+            .AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly))
+
             .AddScoped<ShoppingCartsService>()
             .AddScoped<ProductsService>()
             .AddScoped<OrdersService>()

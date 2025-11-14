@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Store.Core.Business.Orders;
+﻿using Store.Core.Business.Orders;
 using Store.Core.Business.Shared;
 
 [ApiRoute("customers/current/orders")]

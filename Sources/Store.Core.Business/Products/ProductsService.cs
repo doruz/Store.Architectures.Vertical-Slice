@@ -1,5 +1,4 @@
 ﻿using Store.Core.Domain.Repositories;
-using Store.Core.Shared;
 
 namespace Store.Core.Business.Products;
 
@@ -29,14 +28,14 @@ public sealed class ProductsService(RepositoriesContext repositories)
     //        .EnsureIsNotNull(id)
     //        .MapAsync(ProductsMapper.ToProductModel);
 
-    public async Task<ProductModel> AddAsync(NewProductModel productModel)
-    {
-        var newProduct = productModel.ToProduct();
+    //public async Task<ProductModel> AddAsync(NewProductModel productModel)
+    //{
+    //    var newProduct = productModel.ToProduct();
 
-        await repositories.Products.AddAsync(newProduct);
+    //    await repositories.Products.AddAsync(newProduct);
 
-        return newProduct.ToProductModel();
-    }
+    //    return newProduct.ToProductModel();
+    //}
 
     public async Task UpdateAsync(string id, EditProductModel productModel)
     {

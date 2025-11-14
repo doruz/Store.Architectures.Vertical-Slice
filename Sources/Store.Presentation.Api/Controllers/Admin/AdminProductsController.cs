@@ -1,4 +1,5 @@
-﻿using Store.Core.Business.Products;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("admins/products")]
@@ -27,9 +28,9 @@ public sealed class AdminProductsController(ProductsService products, IMediator 
     [HttpPost]
     [ProducesResponseType<ProductModel>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddProduct([FromBody] NewProductModel model)
+    public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
     {
-        var newProduct = await products.AddAsync(model);
+        var newProduct = await Handle(command);
 
         return CreatedAtAction(nameof(FindProduct), new { newProduct.Id }, newProduct);
     }

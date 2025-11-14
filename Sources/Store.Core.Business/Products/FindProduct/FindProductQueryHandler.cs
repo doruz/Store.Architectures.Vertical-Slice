@@ -6,9 +6,9 @@ namespace Store.Core.Business.Products;
 internal sealed class FindProductQueryHandler(RepositoriesContext repositories)
     : IRequestHandler<FindProductQuery, ProductModel>
 {
-    public async Task<ProductModel> Handle(FindProductQuery request, CancellationToken _) =>
+    public async Task<ProductModel> Handle(FindProductQuery query, CancellationToken _) =>
         await repositories.Products
-            .FindAsync(request.Id)
-            .EnsureIsNotNull(request.Id)
+            .FindAsync(query.Id)
+            .EnsureIsNotNull(query.Id)
             .MapAsync(ProductModel.Create);
 }
