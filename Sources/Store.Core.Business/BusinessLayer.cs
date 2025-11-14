@@ -16,7 +16,6 @@ public static class BusinessLayer
         return services
             .AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly))
 
-            .AddScoped<ShoppingCartsService>()
             .AddScoped<ShoppingCartCheckoutService>();
     }
 }

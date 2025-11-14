@@ -4,7 +4,6 @@ using Store.Core.Business.ShoppingCarts;
 
 [ApiRoute("customers/current/shopping-carts/current")]
 public sealed class CustomersShoppingCartsController(
-    ShoppingCartsService shoppingCarts,
     ShoppingCartCheckoutService shoppingCartCheckout,
     IMediator mediator) : BaseApiController(mediator)
 {
@@ -21,13 +20,9 @@ public sealed class CustomersShoppingCartsController(
     /// </summary>
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-   
-    public async Task<IActionResult> ClearCurrentCart()
-    {
-        await shoppingCarts.ClearCurrentCustomerCart();
 
-        return NoContent();
-    }
+    public async Task<IActionResult> ClearCurrentCart()
+        => await HandleCommand(new ClearCustomerCartCommand());
 
     /// <summary>
     /// Update cart details of authenticated customer.
