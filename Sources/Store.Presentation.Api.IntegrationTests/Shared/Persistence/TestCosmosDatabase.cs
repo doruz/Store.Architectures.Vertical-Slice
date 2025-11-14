@@ -20,6 +20,11 @@ internal sealed class TestCosmosDatabase(CosmosDatabaseContainers cosmosContaine
         return cosmosContainers.Orders.DeleteAllItemsByPartitionKeyStreamAsync(customerId.ToPartitionKey());
     }
 
+    public Task<Order?> FindCustomerOrder(string customerId, string orderId)
+    {
+        return cosmosContainers.Orders.FindAsync<Order>(orderId, customerId.ToPartitionKey());
+    }
+
     private async Task AddTestProducts()
     {
         EnsureIsTestDatabase();

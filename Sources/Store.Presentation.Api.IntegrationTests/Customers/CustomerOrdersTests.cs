@@ -1,4 +1,4 @@
-﻿using Store.Core.Business.Orders;
+﻿using Store.Core.Business.Shared;
 
 namespace Store.Presentation.Api.IntegrationTests.Customers;
 
@@ -36,14 +36,14 @@ public class CustomerOrdersTests(ApiApplicationFactory factory) : ApiBaseTests(f
             new OrderSummaryTestModel
             {
                 Id = orders[1].Id,
-                OrderedAt = new DateTimeTestModel(orders[1].OrderedAt.Value),
+                OrderedAt = orders[1].OrderedAt,
                 TotalProducts = 4,
                 TotalPrice = new PriceTestModel(3.72m)
             },
             new OrderSummaryTestModel
             {
                 Id = orders[0].Id,
-                OrderedAt = new DateTimeTestModel(orders[0].OrderedAt.Value),
+                OrderedAt = orders[0].OrderedAt,
                 TotalProducts = 3,
                 TotalPrice = new PriceTestModel(2.49m)
             }
@@ -79,7 +79,7 @@ public class CustomerOrdersTests(ApiApplicationFactory factory) : ApiBaseTests(f
         var expectedOrderDetails = new OrderDetailsTestModel
         {
             Id = order.Id,
-            OrderedAt = new DateTimeTestModel(order.OrderedAt.Value),
+            OrderedAt = order.OrderedAt,
             TotalProducts = 5,
             TotalPrice = new PriceTestModel(4.23m),
 
@@ -116,7 +116,7 @@ public class CustomerOrdersTests(ApiApplicationFactory factory) : ApiBaseTests(f
             .And.ContainContentAsync(expectedOrderDetails);
     }
 
-    private async Task<OrderSummaryModel> SaveNewOrder(Action<UpdateShoppingCartTestModel> shoppingCartActions)
+    private async Task<NewOrderTestModel> SaveNewOrder(Action<UpdateShoppingCartTestModel> shoppingCartActions)
     {
         await Api.Customer.Cart
             .ClearAsync()
@@ -126,9 +126,17 @@ public class CustomerOrdersTests(ApiApplicationFactory factory) : ApiBaseTests(f
             .UpdateAsync(shoppingCartActions)
             .EnsureIsSuccess();
 
-        return await Api.Customer.Cart
+        var newOrder = await Api.Customer.Cart
             .CheckoutAsync()
             .EnsureIsSuccess()
-            .ContentAsAsync<OrderSummaryModel>();
+            .ContentAsAsync<IdModel>();
+
+        var savedOrder = await Database.FindCustomerOrder(CurrentCustomer.Id, newOrder.Id);
+
+        return new NewOrderTestModel
+        {
+            Id = newOrder.Id,
+            OrderedAt = new DateTimeTestModel(savedOrder!.CreatedAt)
+        };
     }
 }

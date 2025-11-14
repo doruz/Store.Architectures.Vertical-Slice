@@ -1,5 +1,4 @@
-﻿using Store.Core.Business.Orders;
-using Store.Core.Business.Products;
+﻿using Store.Core.Business.Products;
 using Store.Core.Domain.Entities;
 using Store.Core.Domain.Repositories;
 using Store.Core.Shared;
@@ -7,9 +6,9 @@ using Store.Core.Shared;
 namespace Store.Core.Business.ShoppingCarts;
 
 internal sealed class CheckoutCustomerCartCommandHandler(RepositoriesContext repositories, ICurrentCustomer currentCustomer)
-    : IRequestHandler<CheckoutCustomerCartCommand, OrderSummaryModel>
+    : IRequestHandler<CheckoutCustomerCartCommand, IdModel>
 {
-    public async Task<OrderSummaryModel> Handle(CheckoutCustomerCartCommand request, CancellationToken _)
+    public async Task<IdModel> Handle(CheckoutCustomerCartCommand request, CancellationToken _)
     {
         var shoppingCartItems = await GetShoppingCartItems();
 
@@ -25,8 +24,7 @@ internal sealed class CheckoutCustomerCartCommandHandler(RepositoriesContext rep
 
         await UpdateProductsStock(shoppingCartItems);
 
-        // TODO: return just the order id
-        return customerOrder.ToOrderSummaryModel();
+        return new IdModel(customerOrder.Id);
     }
 
     private async Task<List<(ShoppingCartLine CartLine, Product Product)>> GetShoppingCartItems()

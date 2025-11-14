@@ -1,5 +1,4 @@
-﻿using Store.Core.Business.Orders;
-using Store.Core.Business.Shared;
+﻿using Store.Core.Business.Shared;
 using Store.Core.Business.ShoppingCarts;
 
 [ApiRoute("customers/current/shopping-carts/current")]
@@ -37,12 +36,12 @@ public sealed class CustomersShoppingCartsController(IMediator mediator) : BaseA
     /// Make an order from current cart.
     /// </summary>
     [HttpPost("checkout")]
-    [ProducesResponseType<OrderSummaryModel>(StatusCodes.Status201Created)]
+    [ProducesResponseType<IdModel>(StatusCodes.Status201Created)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> CheckoutCart()
     {
-        OrderSummaryModel orderSummary = await Handle(new CheckoutCustomerCartCommand());
+        IdModel order = await Handle(new CheckoutCustomerCartCommand());
 
-        return CreatedAtRoute("OrderDetails", new { OrderId = orderSummary.Id }, orderSummary);
+        return CreatedAtRoute("OrderDetails", new { OrderId = order.Id }, order);
     }
 }

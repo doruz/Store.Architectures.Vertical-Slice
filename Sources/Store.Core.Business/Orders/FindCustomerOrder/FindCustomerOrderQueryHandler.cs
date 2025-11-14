@@ -19,7 +19,7 @@ internal sealed class FindCustomerOrderQueryHandler(RepositoriesContext reposito
     private static FindCustomerOrderQueryResult ToOrderDetailedModel(Order order) => new()
     {
         Id = order.Id,
-        OrderedAt = order.CreatedAt.ToOrderedAt(),
+        OrderedAt = order.CreatedAt.ToDateTimeModel(),
 
         TotalProducts = order.TotalProducts,
         TotalPrice = PriceModel.Create(order.TotalPrice),
