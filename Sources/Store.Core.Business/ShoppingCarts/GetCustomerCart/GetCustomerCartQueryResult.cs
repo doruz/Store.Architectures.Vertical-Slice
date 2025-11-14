@@ -1,6 +1,6 @@
 ﻿namespace Store.Core.Business.ShoppingCarts;
 
-public record ShoppingCartModel
+public record GetCustomerCartQueryResult
 {
     public IEnumerable<ShoppingCartLineModel> Lines { get; init; } = [];
 

@@ -3,6 +3,7 @@ using Store.Core.Shared;
 
 namespace Store.Core.Business.Orders;
 
+// TODO: this should be deleted
 internal static class OrdersMapper
 {
     public static OrderSummaryModel ToOrderSummaryModel(this Order order) => new()

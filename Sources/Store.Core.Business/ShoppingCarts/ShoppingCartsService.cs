@@ -7,33 +7,33 @@ namespace Store.Core.Business.ShoppingCarts;
 
 public sealed class ShoppingCartsService(RepositoriesContext repositories, ICurrentCustomer currentCustomer)
 {
-    public async Task<ShoppingCartModel> GetCurrentCustomerCart()
-    {
-        var shoppingCart = await repositories.ShoppingCarts.FindOrEmptyAsync(currentCustomer.Id);
+    //public async Task<ShoppingCartModel> GetCurrentCustomerCart()
+    //{
+    //    var shoppingCart = await repositories.ShoppingCarts.FindOrEmptyAsync(currentCustomer.Id);
 
-        var cartLines = await shoppingCart.Lines
-            .Select(async cartLine => new
-            {
-                CartLine = cartLine,
-                Product = await repositories.Products.FindAsync(cartLine.ProductId)
-            })
-            .ToListAsync();
+    //    var cartLines = await shoppingCart.Lines
+    //        .Select(async cartLine => new
+    //        {
+    //            CartLine = cartLine,
+    //            Product = await repositories.Products.FindAsync(cartLine.ProductId)
+    //        })
+    //        .ToListAsync();
 
-        var lines = cartLines
-            .Where(l => l.Product != null)
-            .Select(l => l.CartLine.ToShoppingCartLineModel(l.Product!));
+    //    var lines = cartLines
+    //        .Where(l => l.Product != null)
+    //        .Select(l => l.CartLine.ToShoppingCartLineModel(l.Product!));
 
-        var totalCartPrice = cartLines
-            .Where(l => l.Product != null)
-            .Select(l => l.Product!.Price * l.CartLine.Quantity)
-            .Sum();
+    //    var totalCartPrice = cartLines
+    //        .Where(l => l.Product != null)
+    //        .Select(l => l.Product!.Price * l.CartLine.Quantity)
+    //        .Sum();
 
-        return new ShoppingCartModel
-        {
-            Lines = lines,
-            TotalPrice = PriceModel.Create(totalCartPrice)
-        };
-    }
+    //    return new ShoppingCartModel
+    //    {
+    //        Lines = lines,
+    //        TotalPrice = PriceModel.Create(totalCartPrice)
+    //    };
+    //}
 
     public Task ClearCurrentCustomerCart()
         => repositories.ShoppingCarts.DeleteAsync(currentCustomer.Id);

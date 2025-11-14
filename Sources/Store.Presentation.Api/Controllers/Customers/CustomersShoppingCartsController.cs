@@ -5,15 +5,16 @@ using Store.Core.Business.ShoppingCarts;
 [ApiRoute("customers/current/shopping-carts/current")]
 public sealed class CustomersShoppingCartsController(
     ShoppingCartsService shoppingCarts,
-    ShoppingCartCheckoutService shoppingCartCheckout) : BaseApiController
+    ShoppingCartCheckoutService shoppingCartCheckout,
+    IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get cart details of authenticated customer.
     /// </summary>
     [HttpGet]
-    [ProducesResponseType<ShoppingCartModel>(StatusCodes.Status200OK)]
+    [ProducesResponseType<GetCustomerCartQueryResult>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentCart() 
-        => Ok(await shoppingCarts.GetCurrentCustomerCart());
+        => await HandleQuery(new GetCustomerCartQuery());
 
     /// <summary>
     /// Clear cart details of authenticated customer.
