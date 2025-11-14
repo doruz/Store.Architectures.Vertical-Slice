@@ -4,9 +4,7 @@ namespace Store.Core.Domain.Repositories;
 
 public interface IProductsRepository
 {
-    Task<IEnumerable<Product>> GetAllAsync();
-
-    Task<IEnumerable<Product>> FilterAsync(Func<Product, bool> filter);
+    Task<IEnumerable<Product>> GetAsync(Func<Product, bool> filter);
 
     Task<bool> ExistsAsync(string id);
 

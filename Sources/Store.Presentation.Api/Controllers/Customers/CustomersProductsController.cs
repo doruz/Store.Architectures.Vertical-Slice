@@ -10,7 +10,7 @@ public sealed class CustomersProductsController(IMediator mediator) : BaseApiCon
     [HttpGet]
     [ProducesResponseType<IEnumerable<ProductModel>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAvailableProducts()
-        => await Handle(new GetAvailableProductsQuery());
+        => await HandleQuery(GetProductsQuery.Available());
 
     /// <summary>
     /// Find details of a specific product.
@@ -19,5 +19,5 @@ public sealed class CustomersProductsController(IMediator mediator) : BaseApiCon
     [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query)
-        => await Handle(query);
+        => await HandleQuery(query);
 }

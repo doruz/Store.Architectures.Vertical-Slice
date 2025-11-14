@@ -14,20 +14,20 @@ public sealed class ProductsService(RepositoriesContext repositories)
     //        .Select(ProductsMapper.ToProductModel);
     //}
 
-    public async Task<IEnumerable<ProductModel>> GetAll()
-    {
-        var products = await repositories.Products.GetAllAsync();
+    //public async Task<IEnumerable<ProductModel>> GetAll()
+    //{
+    //    var products = await repositories.Products.GetAllAsync();
 
-        return products
-            .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
-            .Select(ProductsMapper.ToProductModel);
-    }
+    //    return products
+    //        .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
+    //        .Select(ProductsMapper.ToProductModel);
+    //}
 
-    public Task<ProductModel> FindProductAsync(string id) =>
-        repositories.Products
-            .FindAsync(id)
-            .EnsureIsNotNull(id)
-            .MapAsync(ProductsMapper.ToProductModel);
+    //public Task<ProductModel> FindProductAsync(string id) =>
+    //    repositories.Products
+    //        .FindAsync(id)
+    //        .EnsureIsNotNull(id)
+    //        .MapAsync(ProductsMapper.ToProductModel);
 
     public async Task<ProductModel> AddAsync(NewProductModel productModel)
     {

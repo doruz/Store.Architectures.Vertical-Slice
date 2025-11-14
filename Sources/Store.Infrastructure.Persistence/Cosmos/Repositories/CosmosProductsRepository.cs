@@ -8,16 +8,7 @@ namespace Store.Infrastructure.Persistence.Cosmos;
 
 internal sealed class CosmosProductsRepository(CosmosDatabaseContainers containers) : IProductsRepository
 {
-    public Task<IEnumerable<Product>> GetAllAsync()
-    {
-        var products = containers.Products
-            .GetItemLinqQueryable<Product>(true)
-            .AsEnumerable();
-
-        return Task.FromResult(products);
-    }
-
-    public Task<IEnumerable<Product>> FilterAsync(Func<Product, bool> filter)
+    public Task<IEnumerable<Product>> GetAsync(Func<Product, bool> filter)
     {
         var products = containers.Products
             .GetItemLinqQueryable<Product>(true)

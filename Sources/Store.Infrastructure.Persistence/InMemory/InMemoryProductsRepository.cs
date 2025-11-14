@@ -6,10 +6,7 @@ namespace Store.Infrastructure.Persistence.InMemory;
 
 internal sealed class InMemoryProductsRepository(InMemoryDatabase database) : IProductsRepository
 {
-    public Task<IEnumerable<Product>> GetAllAsync() 
-        => Task.FromResult(database.Products.AsEnumerable());
-
-    public Task<IEnumerable<Product>> FilterAsync(Func<Product, bool> filter)
+    public Task<IEnumerable<Product>> GetAsync(Func<Product, bool> filter)
         => Task.FromResult(database.Products.Where(filter));
 
     public Task<bool> ExistsAsync(string id)

@@ -12,7 +12,7 @@ public record ProductModel
 
     public required int Stock { get; init; }
 
-    public static ProductModel Create(Product product) => new()
+    internal static ProductModel Create(Product product) => new()
     {
         Id = product.Id,
         Name = product.Name,

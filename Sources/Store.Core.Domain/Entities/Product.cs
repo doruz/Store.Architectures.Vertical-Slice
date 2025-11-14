@@ -10,7 +10,7 @@ public sealed class Product(string name, Price price, int stock) : BaseEntity
 
     public int Stock { get; private set; } = stock;
 
-    public static Func<Product, bool> IsAvailable() => product => product.Stock > 0;
+    //public static Func<Product, bool> IsAvailable() => product => product.Stock > 0;
 
     public void Update(string? name, decimal? price, int? stock)
     {
