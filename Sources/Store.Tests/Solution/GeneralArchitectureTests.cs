@@ -4,12 +4,12 @@ namespace Store.Tests.Solution;
 
 public class GeneralArchitectureTests
 {
-    private static readonly Types AllTypes = Types.FromPath(Directory.GetCurrentDirectory());
+    private readonly Types _allTypes = Types.FromPath(Directory.GetCurrentDirectory());
 
     [Fact]
     public void TypeExtensions_Should_BeStatic()
     {
-        var result = AllTypes
+        var result = _allTypes
             .That()
             .ResideInNamespaceMatching("Store.*").And().HaveNameEndingWith("Extensions")
             .Should()
@@ -22,7 +22,7 @@ public class GeneralArchitectureTests
     [Fact]
     public void Interfaces_Should_BePublicAndFollowNamingConvention()
     {
-        var result = AllTypes
+        var result = _allTypes
             .That()
             .ResideInNamespaceMatching("Store.*").And().AreInterfaces()
             .Should()
@@ -35,7 +35,7 @@ public class GeneralArchitectureTests
     [Fact]
     public void AppInitializers_Should_FollowNamingConvention()
     {
-        var result = AllTypes
+        var result = _allTypes
             .That()
             .ImplementInterface(typeof(IAppInitializer))
             .Should()
@@ -48,7 +48,7 @@ public class GeneralArchitectureTests
     [Fact]
     public void AppInitializers_Should_NotBeExposedExternally()
     {
-        var result = AllTypes
+        var result = _allTypes
             .That()
             .ImplementInterface(typeof(IAppInitializer))
             .Should()
