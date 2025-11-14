@@ -36,12 +36,12 @@ internal sealed class GetCustomerCartQueryHandler(RepositoriesContext repositori
         };
     }
 
-    private static ShoppingCartLineModel ToShoppingCartLineModel(ShoppingCartLine cartLine, Product product)
+    private static GetCustomerCartLineModel ToShoppingCartLineModel(ShoppingCartLine cartLine, Product product)
     {
         EnsureArg.IsNotNull(cartLine, nameof(cartLine));
         EnsureArg.IsNotNull(product, nameof(product));
 
-        return new ShoppingCartLineModel
+        return new GetCustomerCartLineModel
         {
             ProductId = product.Id,
             ProductName = product.Name,

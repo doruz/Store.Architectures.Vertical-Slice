@@ -1,13 +1,13 @@
 ﻿namespace Store.Core.Business.ShoppingCarts;
 
-public record GetCustomerCartQueryResult
+public sealed record GetCustomerCartQueryResult
 {
-    public IEnumerable<ShoppingCartLineModel> Lines { get; init; } = [];
+    public IEnumerable<GetCustomerCartLineModel> Lines { get; init; } = [];
 
     public required PriceModel TotalPrice { get; init; }
 }
 
-public record ShoppingCartLineModel
+public sealed record GetCustomerCartLineModel
 {
     public required string ProductId { get; init; }
 

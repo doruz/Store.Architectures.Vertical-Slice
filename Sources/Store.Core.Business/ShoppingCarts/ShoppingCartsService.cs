@@ -38,39 +38,39 @@ public sealed class ShoppingCartsService(RepositoriesContext repositories, ICurr
     public Task ClearCurrentCustomerCart()
         => repositories.ShoppingCarts.DeleteAsync(currentCustomer.Id);
 
-    public async Task UpdateCurrentCustomerCart(params EditShoppingCartLineModel[] lines)
-    {
-        if (lines.IsEmpty())
-        {
-            return;
-        }
+    //public async Task UpdateCurrentCustomerCart(params UpdateCustomerCartLineModel[] lines)
+    //{
+    //    if (lines.IsEmpty())
+    //    {
+    //        return;
+    //    }
 
-        var shoppingCart = await repositories.ShoppingCarts.FindOrEmptyAsync(currentCustomer.Id);
+    //    var shoppingCart = await repositories.ShoppingCarts.FindOrEmptyAsync(currentCustomer.Id);
 
-        shoppingCart.UpdateOrRemoveLines(await GetValidLines(lines));
+    //    shoppingCart.UpdateOrRemoveLines(await GetValidLines(lines));
        
-        await repositories.ShoppingCarts.AddOrUpdateAsync(shoppingCart);
-    }
+    //    await repositories.ShoppingCarts.AddOrUpdateAsync(shoppingCart);
+    //}
 
-    private async Task<ShoppingCartLine[]> GetValidLines(IEnumerable<EditShoppingCartLineModel> cartLines)
-    {
-        var lines = await cartLines
-            .Select(async cartLine => new
-            {
-                CartLine = cartLine,
-                Product = await repositories.Products.FindAsync(cartLine.ProductId)
-            })
-            .ToListAsync();
+    //private async Task<ShoppingCartLine[]> GetValidLines(IEnumerable<UpdateCustomerCartLineModel> cartLines)
+    //{
+    //    var lines = await cartLines
+    //        .Select(async cartLine => new
+    //        {
+    //            CartLine = cartLine,
+    //            Product = await repositories.Products.FindAsync(cartLine.ProductId)
+    //        })
+    //        .ToListAsync();
 
-        lines.ForEach(l =>
-        {
-            l.Product
-                .EnsureIsNotNull(l.CartLine.ProductId)
-                .EnsureStockIsAvailable(l.CartLine.Quantity);
-        });
+    //    lines.ForEach(l =>
+    //    {
+    //        l.Product
+    //            .EnsureIsNotNull(l.CartLine.ProductId)
+    //            .EnsureStockIsAvailable(l.CartLine.Quantity);
+    //    });
 
-        return lines
-            .Select(l => l.CartLine.ToShoppingCartLine())
-            .ToArray();
-    }
+    //    return lines
+    //        .Select(l => l.CartLine.ToShoppingCartLine())
+    //        .ToArray();
+    //}
 }

@@ -37,12 +37,8 @@ public sealed class CustomersShoppingCartsController(
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> UpdateCurrentCart([FromBody] EditShoppingCartLineModel[] lines)
-    {
-        await shoppingCarts.UpdateCurrentCustomerCart(lines);
-
-        return NoContent();
-    }
+    public async Task<IActionResult> UpdateCurrentCart([FromBody] UpdateCustomerCartLineModel[] lines)
+        => await HandleCommand(new UpdateCustomerCartCommand(lines));
 
     /// <summary>
     /// Make an order from current cart.
