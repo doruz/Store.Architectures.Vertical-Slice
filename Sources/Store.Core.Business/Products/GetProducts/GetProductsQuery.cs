@@ -2,7 +2,7 @@
 
 namespace Store.Core.Business.Products;
 
-public sealed record GetProductsQuery : IRequest<IEnumerable<ProductModel>>
+public sealed record GetProductsQuery : IRequest<IEnumerable<GetProductModel>>
 {
     internal Func<Product, bool> Filter { get; }
 

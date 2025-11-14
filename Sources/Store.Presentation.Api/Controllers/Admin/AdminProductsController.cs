@@ -8,7 +8,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     /// Get details of all existing products.
     /// </summary>
     [HttpGet]
-    [ProducesResponseType<IEnumerable<ProductModel>>(StatusCodes.Status200OK)]
+    [ProducesResponseType<IEnumerable<GetProductModel>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProducts() 
         => await HandleQuery(GetProductsQuery.All());
 
@@ -16,7 +16,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     /// Find details of a specific product.
     /// </summary>
     [HttpGet("{id}")]
-    [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
+    [ProducesResponseType<GetProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query) 
         => await HandleQuery(query);

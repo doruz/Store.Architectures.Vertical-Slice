@@ -2,7 +2,7 @@
 
 namespace Store.Core.Business.Products;
 
-public record ProductModel
+public record GetProductModel
 {
     public required string Id { get; init; }
 
@@ -12,7 +12,7 @@ public record ProductModel
 
     public required int Stock { get; init; }
 
-    internal static ProductModel Create(Product product) => new()
+    internal static GetProductModel Create(Product product) => new()
     {
         Id = product.Id,
         Name = product.Name,
