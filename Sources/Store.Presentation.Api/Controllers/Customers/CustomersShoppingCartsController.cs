@@ -3,9 +3,7 @@ using Store.Core.Business.Shared;
 using Store.Core.Business.ShoppingCarts;
 
 [ApiRoute("customers/current/shopping-carts/current")]
-public sealed class CustomersShoppingCartsController(
-    ShoppingCartCheckoutService shoppingCartCheckout,
-    IMediator mediator) : BaseApiController(mediator)
+public sealed class CustomersShoppingCartsController(IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get cart details of authenticated customer.
@@ -43,7 +41,7 @@ public sealed class CustomersShoppingCartsController(
     [ProducesResponseType<BusinessError>(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> CheckoutCart()
     {
-        OrderSummaryModel orderSummary = await shoppingCartCheckout.CheckoutCurrentCustomerCart();
+        OrderSummaryModel orderSummary = await Handle(new CheckoutCustomerCartCommand());
 
         return CreatedAtRoute("OrderDetails", new { OrderId = orderSummary.Id }, orderSummary);
     }

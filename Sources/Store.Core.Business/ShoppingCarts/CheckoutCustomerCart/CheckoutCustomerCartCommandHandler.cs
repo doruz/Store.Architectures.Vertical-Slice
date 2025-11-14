@@ -6,9 +6,10 @@ using Store.Core.Shared;
 
 namespace Store.Core.Business.ShoppingCarts;
 
-public sealed class ShoppingCartCheckoutService(RepositoriesContext repositories, ICurrentCustomer currentCustomer)
+internal sealed class CheckoutCustomerCartCommandHandler(RepositoriesContext repositories, ICurrentCustomer currentCustomer)
+    : IRequestHandler<CheckoutCustomerCartCommand, OrderSummaryModel>
 {
-    public async Task<OrderSummaryModel> CheckoutCurrentCustomerCart()
+    public async Task<OrderSummaryModel> Handle(CheckoutCustomerCartCommand request, CancellationToken _)
     {
         var shoppingCartItems = await GetShoppingCartItems();
 
@@ -23,7 +24,7 @@ public sealed class ShoppingCartCheckoutService(RepositoriesContext repositories
         await repositories.ShoppingCarts.DeleteAsync(currentCustomer.Id);
 
         await UpdateProductsStock(shoppingCartItems);
-        
+
         // TODO: return just the order id
         return customerOrder.ToOrderSummaryModel();
     }

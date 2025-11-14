@@ -29,7 +29,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command)
     {
-        var newProduct = await Handle(command);
+        ProductModel newProduct = await Handle(command);
 
         return CreatedAtAction(nameof(FindProduct), new { newProduct.Id }, newProduct);
     }
