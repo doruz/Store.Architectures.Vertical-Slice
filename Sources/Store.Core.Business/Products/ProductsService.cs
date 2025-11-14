@@ -37,16 +37,16 @@ public sealed class ProductsService(RepositoriesContext repositories)
     //    return newProduct.ToProductModel();
     //}
 
-    public async Task UpdateAsync(string id, EditProductModel productModel)
-    {
-        var existingProduct = await repositories.Products
-            .FindAsync(id)
-            .EnsureIsNotNull(id);
+    //public async Task UpdateAsync(string id, EditProductModel productModel)
+    //{
+    //    var existingProduct = await repositories.Products
+    //        .FindAsync(id)
+    //        .EnsureIsNotNull(id);
       
-        existingProduct.Update(productModel.Name, productModel.Price, productModel.Stock);
+    //    existingProduct.Update(productModel.Name, productModel.Price, productModel.Stock);
 
-        await repositories.Products.UpdateAsync(existingProduct);
-    }
+    //    await repositories.Products.UpdateAsync(existingProduct);
+    //}
 
     public async Task DeleteAsync(string id)
     {

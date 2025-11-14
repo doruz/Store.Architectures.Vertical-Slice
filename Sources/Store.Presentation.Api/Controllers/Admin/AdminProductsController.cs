@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Store.Core.Business.Products;
+﻿using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("admins/products")]
@@ -42,12 +41,8 @@ public sealed class AdminProductsController(ProductsService products, IMediator 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] EditProductModel model)
-    {
-        await products.UpdateAsync(id, model);
-
-        return NoContent();
-    }
+    public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] UpdateProductCommand command)
+        => await HandleCommand(command.For(id));
 
     /// <summary>
     /// Remove details of an existing product.
