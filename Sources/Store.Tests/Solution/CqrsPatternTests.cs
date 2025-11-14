@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Store.Tests;
+namespace Store.Tests.Solution;
 
 public class CqrsPatternTests
 {
@@ -68,6 +68,8 @@ public class CqrsPatternTests
             .Add(types => types
                     .That()
                     .ImplementInterface(typeof(IRequest)).Or().ImplementInterface(typeof(IRequest<>))
+                    .Or()
+                    .HaveNameMatching($"({Query}|{Command})Result$")
                     .Should()
                     .BePublic().And().BeRecords().And().HaveAllPropertiesWithInitOnly(),
                 "Commands & Queries",
@@ -97,6 +99,8 @@ public class CqrsPatternTests
             .Add(types => types
                     .That()
                     .ImplementInterface(typeof(IRequest)).Or().ImplementInterface(typeof(IRequest<>))
+                    .Or()
+                    .HaveNameMatching($"({Query}|{Command})Result$")
                     .Or()
                     .ImplementInterface(typeof(IRequestHandler<>)).Or().ImplementInterface(typeof(IRequestHandler<,>))
                     .ShouldNot()

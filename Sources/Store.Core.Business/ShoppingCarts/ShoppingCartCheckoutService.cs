@@ -23,7 +23,8 @@ public sealed class ShoppingCartCheckoutService(RepositoriesContext repositories
         await repositories.ShoppingCarts.DeleteAsync(currentCustomer.Id);
 
         await UpdateProductsStock(shoppingCartItems);
-
+        
+        // TODO: return just the order id
         return customerOrder.ToOrderSummaryModel();
     }
 
