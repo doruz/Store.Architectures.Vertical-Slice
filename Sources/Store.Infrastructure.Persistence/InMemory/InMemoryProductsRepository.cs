@@ -9,9 +9,6 @@ internal sealed class InMemoryProductsRepository(InMemoryDatabase database) : IP
     public Task<IEnumerable<Product>> GetAsync(Func<Product, bool> filter)
         => Task.FromResult(database.Products.Where(filter));
 
-    public Task<bool> ExistsAsync(string id)
-        => Task.FromResult(database.Products.Any(p => p.Id.IsEqualTo(id)));
-
     public Task<Product?> FindAsync(string id)
         => Task.FromResult(database.Products.Find(p => p.Id.IsEqualTo(id)));
 

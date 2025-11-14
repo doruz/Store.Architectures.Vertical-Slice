@@ -2,7 +2,7 @@
 using Store.Core.Business.Shared;
 
 [ApiRoute("admins/products")]
-public sealed class AdminProductsController(ProductsService products, IMediator mediator) : BaseApiController(mediator)
+public sealed class AdminProductsController(IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get details of all existing products.
@@ -50,10 +50,6 @@ public sealed class AdminProductsController(ProductsService products, IMediator 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteProduct([FromRoute] string id)
-    {
-        await products.DeleteAsync(id);
-
-        return NoContent();
-    }
+    public async Task<IActionResult> DeleteProduct([FromRoute] DeleteProductCommand command)
+        => await HandleCommand(command);
 }

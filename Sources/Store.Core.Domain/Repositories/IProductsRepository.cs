@@ -6,8 +6,6 @@ public interface IProductsRepository
 {
     Task<IEnumerable<Product>> GetAsync(Func<Product, bool> filter);
 
-    Task<bool> ExistsAsync(string id);
-
     Task<Product?> FindAsync(string id);
 
     Task AddAsync(Product product);

@@ -1,8 +1,6 @@
 ﻿using EnsureThat;
-using Microsoft.Azure.Cosmos;
 using Store.Core.Domain.Entities;
 using Store.Core.Domain.Repositories;
-using Microsoft.Azure.Cosmos.Linq;
 
 namespace Store.Infrastructure.Persistence.Cosmos;
 
@@ -16,22 +14,6 @@ internal sealed class CosmosProductsRepository(CosmosDatabaseContainers containe
             .AsEnumerable();
 
         return Task.FromResult(products);
-    }
-
-    public async Task<bool> ExistsAsync(string id)
-    {
-        EnsureArg.IsNotNullOrEmpty(id, nameof(id));
-
-        var requestOptions = new QueryRequestOptions
-        {
-            PartitionKey = id.ToPartitionKey(),
-            MaxItemCount = 1
-        };
-
-        return await containers.Products
-            .GetItemLinqQueryable<Product>(requestOptions: requestOptions)
-            .Where(product => product.Id == id)
-            .CountAsync() > 0;
     }
 
     public Task<Product?> FindAsync(string id)
