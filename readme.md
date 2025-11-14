@@ -1,4 +1,4 @@
-# Onion Architecture in .NET
+# Vertical Slice Architecture in .NET
 
 ## Application
 
@@ -30,7 +30,7 @@ In order to keep things simpler and cleaner, the tools used to build this soluti
 
 ### Layers
 
- (Onion | Clean) Architecture aims to separate the concerns of the application into distinct layers, promoting high cohesion and low coupling. Current solution consists of the following layers: 
+ (Vertical Slice & Onion) Architecture aims to separate the concerns of the application into distinct layers, promoting high cohesion and low coupling. Current solution consists of the following layers: 
 
 - **Core**: core business logic of the application
   - **Shared**: contains common logic (extensions, utilities, etc.) which could be shared on all projects from the solution.
