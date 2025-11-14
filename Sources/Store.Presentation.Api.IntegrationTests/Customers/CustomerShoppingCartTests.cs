@@ -249,7 +249,7 @@ public class CustomerShoppingCartTests(ApiApplicationFactory factory) : ApiBaseT
 
     private async Task ProductShouldHaveStock(string id, int expectedStock)
     {
-        var product = await Api.Customer
+        var product = await Api.Customer.Products
             .FindProductAsync(id)
             .EnsureIsSuccess()
             .ContentAsAsync<ReadProductTestModel>();

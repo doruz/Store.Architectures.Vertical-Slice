@@ -6,24 +6,35 @@ public sealed class CustomerApiClient(HttpClient client)
 {
     private const string BaseRoute = "/api/customers/current";
 
-    public CustomerShoppingCartApiClient Cart { get; } = new(client);
+    public CustomerProductsApiClient Products { get; } = new(client, BaseRoute);
 
-    public CustomerOrdersApiClient Orders { get; } = new(client);
+    public CustomerShoppingCartApiClient Cart { get; } = new(client, BaseRoute);
 
-    public Task<HttpResponseMessage> FindProductAsync(string id)
-        => client.GetAsync($"{BaseRoute}/products/{id}");
+    public CustomerOrdersApiClient Orders { get; } = new(client, BaseRoute);
 }
 
 
-public sealed class CustomerShoppingCartApiClient(HttpClient client)
+public sealed class CustomerProductsApiClient(HttpClient client, string baseRoute)
 {
-    private const string Route = "/api/customers/current/shopping-carts/current";
+    private readonly string _route = $"{baseRoute}/products";
+
+    public Task<HttpResponseMessage> GetAvailableProductsAsync()
+        => client.GetAsync(_route);
+
+    public Task<HttpResponseMessage> FindProductAsync(string productId)
+        => client.GetAsync($"{_route}/{productId}");
+}
+
+
+public sealed class CustomerShoppingCartApiClient(HttpClient client, string baseRoute)
+{
+    private readonly string _route = $"{baseRoute}/shopping-carts/current";
 
     public Task<HttpResponseMessage> GetAsync()
-        => client.GetAsync(Route);
+        => client.GetAsync(_route);
 
     public Task<HttpResponseMessage> ClearAsync()
-        => client.DeleteAsync(Route);
+        => client.DeleteAsync(_route);
 
     public Task<HttpResponseMessage> UpdateAsync(Action<UpdateShoppingCartTestModel> shoppingCartActions)
     {
@@ -31,21 +42,21 @@ public sealed class CustomerShoppingCartApiClient(HttpClient client)
 
         shoppingCartActions(shoppingCart);
 
-        return client.PatchAsJsonAsync(Route, shoppingCart.Lines);
+        return client.PatchAsJsonAsync(_route, shoppingCart.Lines);
     }
 
     public Task<HttpResponseMessage> CheckoutAsync()
-        => client.PostAsJsonAsync($"{Route}/checkout", new { });
+        => client.PostAsJsonAsync($"{_route}/checkout", new { });
 }
 
 
-public sealed class CustomerOrdersApiClient(HttpClient client)
+public sealed class CustomerOrdersApiClient(HttpClient client, string baseRoute)
 {
-    private const string Route = "/api/customers/current/orders";
+    private readonly string _route = $"{baseRoute}/orders";
 
     public Task<HttpResponseMessage> GetAllAsync()
-        => client.GetAsync(Route);
+        => client.GetAsync(_route);
 
     public Task<HttpResponseMessage> FindAsync(string orderId)
-        => client.GetAsync($"{Route}/{orderId}");
+        => client.GetAsync($"{_route}/{orderId}");
 }

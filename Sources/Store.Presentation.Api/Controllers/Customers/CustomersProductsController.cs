@@ -1,4 +1,4 @@
-﻿using Store.Core.Business.Customers.Products;
+﻿using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("customers/current/products")]
@@ -10,7 +10,7 @@ public sealed class CustomersProductsController(IMediator mediator) : BaseApiCon
     [HttpGet]
     [ProducesResponseType<IEnumerable<ProductModel>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAvailableProducts()
-        => await Execute(new GetAvailableProductsQuery());
+        => await Handle(new GetAvailableProductsQuery());
 
     /// <summary>
     /// Find details of a specific product.
@@ -19,5 +19,5 @@ public sealed class CustomersProductsController(IMediator mediator) : BaseApiCon
     [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query)
-        => await Execute(query);
+        => await Handle(query);
 }

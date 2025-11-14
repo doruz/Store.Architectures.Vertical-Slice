@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Store.Core.Business.Products;
+﻿using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
 
 [ApiRoute("admins/products")]
-public sealed class AdminProductsController(ProductsService products) : BaseApiController
+public sealed class AdminProductsController(ProductsService products, IMediator mediator) : BaseApiController(mediator)
 {
     /// <summary>
     /// Get details of all existing products.
@@ -19,8 +18,8 @@ public sealed class AdminProductsController(ProductsService products) : BaseApiC
     [HttpGet("{id}")]
     [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
     [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> FindProduct([FromRoute] string id) 
-        => Ok(await products.FindProductAsync(id));
+    public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query) 
+        => await Handle(query);
 
     /// <summary>
     /// Add new product details.

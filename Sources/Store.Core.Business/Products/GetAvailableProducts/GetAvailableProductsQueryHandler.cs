@@ -1,7 +1,7 @@
 ﻿using Store.Core.Domain.Entities;
 using Store.Core.Domain.Repositories;
 
-namespace Store.Core.Business.Customers.Products;
+namespace Store.Core.Business.Products;
 
 internal sealed class GetAvailableProductsQueryHandler(RepositoriesContext repositories)
     : IRequestHandler<GetAvailableProductsQuery, IEnumerable<ProductModel>>
@@ -12,14 +12,6 @@ internal sealed class GetAvailableProductsQueryHandler(RepositoriesContext repos
 
         return products
             .OrderBy(p => p.Name, StringComparer.InvariantCultureIgnoreCase)
-            .Select(ToProductModel);
+            .Select(ProductModel.Create);
     }
-
-    private static ProductModel ToProductModel(Product product) => new()
-    {
-        Id = product.Id,
-        Name = product.Name,
-        Price = PriceModel.Create(product.Price),
-        Stock = product.Stock
-    };
 }
