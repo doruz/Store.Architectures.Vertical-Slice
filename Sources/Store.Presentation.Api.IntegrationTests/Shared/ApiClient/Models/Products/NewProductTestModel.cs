@@ -8,12 +8,4 @@ public record NewProductTestModel(string Name, decimal Price, int Stock)
         Price: Random.Numbers.Generate(0, int.MaxValue),
         Stock: Random.Numbers.Generate(0, int.MaxValue)
     );
-
-    internal ReadProductTestModel GetExpectedDetails(string id) => new()
-    {
-        Id = id,
-        Name = Name,
-        Price = new PriceTestModel(Price),
-        Stock = Stock
-    };
 }

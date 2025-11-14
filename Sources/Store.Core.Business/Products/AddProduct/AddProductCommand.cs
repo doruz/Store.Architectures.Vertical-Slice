@@ -3,7 +3,7 @@ using Store.Core.Shared;
 
 namespace Store.Core.Business.Products;
 
-public record AddProductCommand : IRequest<ProductModel>
+public record AddProductCommand : IRequest<IdModel>
 {
     [Required(ErrorMessage = ValidationMessages.Required)]
     [MaxLength(100, ErrorMessage = ValidationMessages.MaxLength)]

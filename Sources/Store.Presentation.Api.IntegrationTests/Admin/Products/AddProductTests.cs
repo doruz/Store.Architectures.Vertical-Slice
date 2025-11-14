@@ -16,22 +16,6 @@ public class AddProductTests(ApiApplicationFactory factory) : ApiBaseTests(facto
     }
 
     [Fact]
-    public async Task When_ProductDetailsAreValid_Should_ReturnAddedProductDetails()
-    {
-        // Arrange
-        var newProduct = NewProductTestModel.CreateRandom();
-
-        // Act
-        var response = await Api.Admin.AddProductAsync(newProduct);
-
-        // Assert
-        // Assert
-        await response.Should()
-            .HaveStatusCode(HttpStatusCode.Created)
-            .And.ContainContentAsync<ReadProductTestModel>(p => newProduct.GetExpectedDetails(p.Id));
-    }
-
-    [Fact]
     public async Task When_ProductDetailsAreValid_Should_ReturnAddedProductId()
     {
         // Arrange
