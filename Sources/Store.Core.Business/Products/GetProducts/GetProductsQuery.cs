@@ -8,6 +8,6 @@ public sealed record GetProductsQuery : IRequest<IEnumerable<GetProductModel>>
 
     private GetProductsQuery(Func<Product, bool> filter) => Filter = filter;
 
-    public static GetProductsQuery Available() => new(product => product.Stock > 0);
-    public static GetProductsQuery All() => new(_ => true);
+    public static GetProductsQuery Available() => new(product => product is { Stock: > 0, DeletedAt: null });
+    public static GetProductsQuery All() => new(product => product.DeletedAt == null);
 }

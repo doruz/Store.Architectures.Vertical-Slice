@@ -29,6 +29,6 @@ internal sealed class InMemoryProductsRepository(InMemoryDatabase database) : IP
         await AddAsync(product);
     }
 
-    public Task DeleteAsync(string id)
+    private Task DeleteAsync(string id)
         => Task.FromResult(database.Products.RemoveAll(p => p.Id.IsEqualTo(id)));
 }

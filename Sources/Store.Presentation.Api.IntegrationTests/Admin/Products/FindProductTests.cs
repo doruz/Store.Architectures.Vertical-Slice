@@ -26,4 +26,19 @@ public class FindProductTests(ApiApplicationFactory factory) : ApiBaseTests(fact
             .HaveStatusCode(HttpStatusCode.OK)
             .And.ContainContentAsync(expectedProduct);
     }
+
+    [Fact]
+    public async Task When_ProductIsDeleted_Should_ReturnNotFound()
+    {
+        // Arrange
+        await Api.Admin
+            .DeleteProductAsync(TestProducts.Apples.Id)
+            .EnsureIsSuccess();
+
+        // Act
+        var response = await Api.Admin.FindProductAsync(TestProducts.Apples.Id);
+
+        // Assert
+        response.Should().HaveStatusCode(HttpStatusCode.NotFound);
+    }
 }

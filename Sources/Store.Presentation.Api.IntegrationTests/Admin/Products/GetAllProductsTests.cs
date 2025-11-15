@@ -21,4 +21,27 @@ public class GetAllProductsTests(ApiApplicationFactory factory) : ApiBaseTests(f
             .HaveStatusCode(HttpStatusCode.OK)
             .And.ContainContentAsync(expectedProducts);
     }
+
+    [Fact]
+    public async Task When_ProductIsDeleted_Should_NotBeReturned()
+    {
+        // Arrange
+        var expectedProducts = new List<ReadProductTestModel>
+        {
+            ReadProductTestModel.Create(TestProducts.Apples),
+            ReadProductTestModel.Create(TestProducts.Oranges)
+        };
+
+        await Api.Admin
+            .DeleteProductAsync(TestProducts.Bananas.Id)
+            .EnsureIsSuccess();
+
+        // Act
+        var response = await Api.Admin.GetAllProductsAsync();
+
+        // Assert
+        await response.Should()
+            .HaveStatusCode(HttpStatusCode.OK)
+            .And.ContainContentAsync(expectedProducts);
+    }
 }

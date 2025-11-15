@@ -18,10 +18,10 @@ public sealed class CustomerProductsApiClient(HttpClient client, string baseRout
 {
     private readonly string _route = $"{baseRoute}/products";
 
-    public Task<HttpResponseMessage> GetAvailableProductsAsync()
+    public Task<HttpResponseMessage> GetAvailableAsync()
         => client.GetAsync(_route);
 
-    public Task<HttpResponseMessage> FindProductAsync(string productId)
+    public Task<HttpResponseMessage> FindAsync(string productId)
         => client.GetAsync($"{_route}/{productId}");
 }
 

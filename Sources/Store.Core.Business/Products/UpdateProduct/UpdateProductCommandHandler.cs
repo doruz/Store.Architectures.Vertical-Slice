@@ -10,7 +10,7 @@ internal sealed class UpdateProductCommandHandler(RepositoriesContext repositori
     {
         var existingProduct = await repositories.Products
             .FindAsync(command.Id)
-            .EnsureIsNotNull(command.Id);
+            .EnsureExists(command.Id);
 
         existingProduct.Update(command.Name, command.Price, command.Stock);
 

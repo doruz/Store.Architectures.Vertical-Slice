@@ -1,4 +1,5 @@
-﻿using Store.Core.Domain.Repositories;
+﻿using Store.Core.Domain.Entities;
+using Store.Core.Domain.Repositories;
 using Store.Core.Shared;
 
 namespace Store.Core.Business.Products;
@@ -9,6 +10,6 @@ internal sealed class FindProductQueryHandler(RepositoriesContext repositories)
     public async Task<GetProductModel> Handle(FindProductQuery query, CancellationToken _) =>
         await repositories.Products
             .FindAsync(query.Id)
-            .EnsureIsNotNull(query.Id)
+            .EnsureExists(query.Id)
             .MapAsync(GetProductModel.Create);
 }
