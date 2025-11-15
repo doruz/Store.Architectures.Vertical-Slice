@@ -65,7 +65,7 @@ public class CustomerShoppingCartTests(ApiApplicationFactory factory) : ApiBaseT
         // Assert
         await response.Should()
             .HaveStatusCode(HttpStatusCode.NotFound)
-            .And.ContainContentAsync(new BusinessErrorTestModel("product_not_found"));
+            .And.ContainContentAsync(new AppErrorTestModel("product_not_found"));
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class CustomerShoppingCartTests(ApiApplicationFactory factory) : ApiBaseT
         // Assert
         await response.Should()
             .HaveStatusCode(HttpStatusCode.Conflict)
-            .And.ContainContentAsync(new BusinessErrorTestModel("product_stock_not_available"));
+            .And.ContainContentAsync(new AppErrorTestModel("product_stock_not_available"));
     }
 
     [Fact]
@@ -180,7 +180,7 @@ public class CustomerShoppingCartTests(ApiApplicationFactory factory) : ApiBaseT
         // Assert
         await response.Should()
             .HaveStatusCode(HttpStatusCode.NotFound)
-            .And.ContainContentAsync(new BusinessErrorTestModel("shopping_cart_is_empty"));
+            .And.ContainContentAsync(new AppErrorTestModel("shopping_cart_is_empty"));
     }
 
     [Fact]

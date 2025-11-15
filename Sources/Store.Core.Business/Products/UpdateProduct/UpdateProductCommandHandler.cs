@@ -1,4 +1,5 @@
-﻿using Store.Core.Domain.Repositories;
+﻿using Store.Core.Domain.Entities;
+using Store.Core.Domain.Repositories;
 
 namespace Store.Core.Business.Products;
 

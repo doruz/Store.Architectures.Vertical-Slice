@@ -67,7 +67,7 @@ public class CustomerOrdersTests(ApiApplicationFactory factory) : ApiBaseTests(f
         // Assert
         await response.Should()
             .HaveStatusCode(HttpStatusCode.NotFound)
-            .And.ContainContentAsync(new BusinessErrorTestModel("not_found")); ;
+            .And.ContainContentAsync(new AppErrorTestModel("not_found")); ;
     }
 
     [Fact]

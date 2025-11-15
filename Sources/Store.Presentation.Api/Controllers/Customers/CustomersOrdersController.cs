@@ -1,5 +1,5 @@
 ﻿using Store.Core.Business.Orders;
-using Store.Core.Business.Shared;
+using Store.Core.Shared;
 
 [ApiRoute("customers/current/orders")]
 public sealed class CustomersOrdersController(IMediator mediator) : BaseApiController(mediator)
@@ -17,7 +17,7 @@ public sealed class CustomersOrdersController(IMediator mediator) : BaseApiContr
     /// </summary>
     [HttpGet("{orderId}", Name = "OrderDetails")]
     [ProducesResponseType<FindCustomerOrderQueryResult>(StatusCodes.Status200OK)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindOrderDetails([FromRoute] FindCustomerOrderQuery query)
         => await HandleQuery(query);
 }

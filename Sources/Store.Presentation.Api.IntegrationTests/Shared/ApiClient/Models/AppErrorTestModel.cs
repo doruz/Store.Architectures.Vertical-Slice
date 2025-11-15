@@ -1,3 +1,3 @@
 ﻿namespace Store.Presentation.Api.IntegrationTests;
 
-internal record BusinessErrorTestModel(string Error);
+internal record AppErrorTestModel(string Error);

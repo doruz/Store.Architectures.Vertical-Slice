@@ -1,5 +1,6 @@
 ﻿using Store.Core.Business.Products;
 using Store.Core.Business.Shared;
+using Store.Core.Shared;
 
 [ApiRoute("admins/products")]
 public sealed class AdminProductsController(IMediator mediator) : BaseApiController(mediator)
@@ -17,7 +18,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     /// </summary>
     [HttpGet("{id}")]
     [ProducesResponseType<GetProductModel>(StatusCodes.Status200OK)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> FindProduct([FromRoute] FindProductQuery query) 
         => await HandleQuery(query);
 
@@ -40,7 +41,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] UpdateProductCommand command)
         => await HandleCommand(command.For(id));
 
@@ -49,7 +50,7 @@ public sealed class AdminProductsController(IMediator mediator) : BaseApiControl
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProduct([FromRoute] DeleteProductCommand command)
         => await HandleCommand(command);
 }
