@@ -1,5 +1,6 @@
 ﻿using Store.Core.Business.Shared;
 using Store.Core.Business.ShoppingCarts;
+using Store.Core.Shared;
 
 [ApiRoute("customers/current/shopping-carts/current")]
 public sealed class CustomersShoppingCartsController(IMediator mediator) : BaseApiController(mediator)
@@ -27,8 +28,8 @@ public sealed class CustomersShoppingCartsController(IMediator mediator) : BaseA
     [HttpPatch]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status404NotFound)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status409Conflict)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateCurrentCart([FromBody] UpdateCustomerCartLineModel[] lines)
         => await HandleCommand(new UpdateCustomerCartCommand(lines));
 
@@ -37,7 +38,7 @@ public sealed class CustomersShoppingCartsController(IMediator mediator) : BaseA
     /// </summary>
     [HttpPost("checkout")]
     [ProducesResponseType<IdModel>(StatusCodes.Status201Created)]
-    [ProducesResponseType<BusinessError>(StatusCodes.Status409Conflict)]
+    [ProducesResponseType<AppErrorModel>(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> CheckoutCart()
     {
         IdModel order = await Handle(new CheckoutCustomerCartCommand());

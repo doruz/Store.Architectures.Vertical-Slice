@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<CosmosExceptionsFilter>();
-    options.Filters.Add<BusinessExceptionsFilter>();
+    options.Filters.Add<AppErrorsFilter>();
 });
 
 builder.Services
