@@ -34,7 +34,7 @@ internal sealed class UpdateCustomerCartCommandHandler(RepositoriesContext repos
         lines.ForEach(l =>
         {
             l.Product
-                .EnsureIsNotNull(l.CartLine.ProductId)
+                .EnsureExists(l.CartLine.ProductId)
                 .EnsureStockIsAvailable(l.CartLine.Quantity);
         });
 

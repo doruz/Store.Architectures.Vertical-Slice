@@ -33,7 +33,4 @@ internal sealed class CosmosProductsRepository(CosmosDatabaseContainers containe
 
         await containers.Products.ReplaceItemAsync(product, product.Id, product.Id.ToPartitionKey());
     }
-
-    public Task DeleteAsync(string id) 
-        => containers.Products.DeleteItemAsync<Product>(id, id.ToPartitionKey());
 }

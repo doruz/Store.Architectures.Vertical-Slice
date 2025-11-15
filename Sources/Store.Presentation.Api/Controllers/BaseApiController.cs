@@ -1,9 +1,7 @@
 ﻿[ApiController]
 [Produces("application/json")]
-public abstract class BaseApiController(IMediator mediator = null) : ControllerBase
+public abstract class BaseApiController(IMediator mediator) : ControllerBase
 {
-    // TODO: to change mediator to not be null
-
     protected async Task<TResponse> Handle<TResponse>(IRequest<TResponse> request)
         => await mediator.Send(request);
 
