@@ -1,14 +1,13 @@
 @ProductsRoute={{BaseUrl}}/api/admins/products
 @ProductId={{newProductRequest.response.body.$.id}}
 
+
 # get details of all products
 GET {{ProductsRoute}}
-Accept: application/json
 
 
 ### find details of specific product
 GET {{ProductsRoute}}/{{ProductId}}
-Accept: application/json
 
 
 ### add new product

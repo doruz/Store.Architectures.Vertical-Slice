@@ -1,0 +1,10 @@
+@ProductsRoute={{BaseUrl}}/api/customers/current/products
+@ProductId=0aa2efc3-6eb1-4168-81c9-85481288c140
+
+
+# get details of all available products
+GET {{ProductsRoute}}
+
+
+### find details of specific product
+GET {{ProductsRoute}}/{{ProductId}}
