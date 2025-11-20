@@ -1,0 +1,24 @@
+@ShoppingCartRoute={{BaseUrl}}/api/customers/current/shopping-carts/current
+
+
+# get current shopping cart
+GET {{ShoppingCartRoute}}
+
+
+### clear current shopping cart
+DELETE {{ShoppingCartRoute}}
+
+
+### update current shopping cart
+PATCH {{ShoppingCartRoute}}
+Content-Type: application/json
+[
+    {
+        "productId": "0aa2efc3-6eb1-4168-81c9-85481288c140",
+        "quantity": 5
+    }
+]
+
+
+### checkout current shopping cart
+POST {{ShoppingCartRoute}}/checkout

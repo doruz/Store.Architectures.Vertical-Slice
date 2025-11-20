@@ -1,0 +1,9 @@
+@OrdersRoute={{BaseUrl}}/api/customers/current/orders
+@OrderId=9c90c6a3-66ee-4d27-8029-6dac5e59cf18
+
+
+# get customer orders summaries
+GET {{OrdersRoute}}
+
+### find customer order
+GET {{OrdersRoute}}/{{OrderId}}
