@@ -1,0 +1,35 @@
+@ProductsRoute={{BaseUrl}}/api/admins/products
+@ProductId={{newProductRequest.response.body.$.id}}
+
+# get details of all products
+GET {{ProductsRoute}}
+Accept: application/json
+
+
+### find details of specific product
+GET {{ProductsRoute}}/{{ProductId}}
+Accept: application/json
+
+
+### add new product
+# @name newProductRequest
+POST {{ProductsRoute}}
+Content-Type: application/json
+{
+    "name": "apples",
+    "price": 0.55,
+    "stock": 10
+}
+
+### update existing product
+PUT {{ProductsRoute}}/{{ProductId}}
+Content-Type: application/json
+{
+    "name": null,
+    "price": null,
+    "stock": null
+}
+
+
+### delete existing product
+DELETE {{ProductsRoute}}/{{ProductId}}

@@ -26,4 +26,10 @@
     <Folder Include="Controllers\Customers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="http-client.env.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
